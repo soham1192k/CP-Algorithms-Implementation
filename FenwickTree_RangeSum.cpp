@@ -26,47 +26,30 @@ template <class T> void _print(set <T> v) {cerr << "[ "; for (T i : v) {_print(i
 template <class T> void _print(multiset <T> v) {cerr << "[ "; for (T i : v) {_print(i); cerr << " ";} cerr << "]";}
 template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i : v) {_print(i); cerr << " ";} cerr << "]";}
 //*********************************************************************************************************************************************************************************************************
+int BIT[1000], a[1000], n;
+void update(int x, int delta)
+{
+      for(;x<=n;x+=x&-x)
+        BIT[x]+= delta;
+}
+int query(int x)
+{
+     int sum = 0;
+     for(;x>0;x-=x&-x)
+        sum+=BIT[x];
+     return sum;
+}
 
-int getSum(int BITree[],int index){
-    int sum=0;
-    index++;
-    while(index>0){
-        sum+=BITree[index];
-        index-=index&(-index);
-    }
-    return sum;
-}
-void updateBIT(int BITree[],int n,int index,int val){
-    index++;
-    while(index<=n){
-        BITree[index]+=val;
-        index+=index&(-index);
-    }
-}
-void solve(){
-    int freq[]={2,1,1,3,2,3,4,5,6,7,8,9};
-    int n=sizeof(freq)/sizeof(freq[0]);
-    int BITree[n+1];
-    for(int i=1;i<=n;i++) BITree[i]=0;
-    for(int i=0;i<n;i++){
-        updateBIT(BITree,n,i,freq[i]);
-    }
-    cout<<getSum(BITree,5)<<'\n';
-    freq[3]+=6;
-    updateBIT(BITree,n,3,6);
-    cout<<getSum(BITree,5);
-}
-int32_t main(){
-    soham1192k;
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    freopen("error.txt","w",stderr);
-#endif  
-    int T=1;
-    // cin>>T;
-    while(T--){
-        solve();
-    }
-    return 0;
+int main()
+{
+     scanf(“%d”, &n);
+     int i;
+     for(i = 1; i <= n; i++)
+     {
+           scanf(“%d”, &a[i]);
+           update(i, a[i]);
+     }
+     printf(“sum of first 10 elements is %d\n”, query(10));
+     printf(“sum of all elements in range [2, 7] is %d\n”, query(7) – query(2-1));
+     return 0;
 }
