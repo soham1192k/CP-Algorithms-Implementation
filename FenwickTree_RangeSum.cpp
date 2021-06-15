@@ -53,3 +53,14 @@ int main()
      printf(“sum of all elements in range [2, 7] is %d\n”, query(7) – query(2-1));
      return 0;
 }
+
+//When to use Binary Indexed Tree?
+
+// Before going for Binary Indexed tree to perform operations over range, one must confirm that the operation or the function is:
+// Associative. i.e f(f(a, b), c) = f(a, f(b, c)) this is true even for seg-tree
+// Has an inverse. eg:
+// addition has inverse subtraction (this example we have discussed)
+// Multiplication has inverse division
+// gcd() has no inverse, so we can’t use BIT to calculate range gcd’s
+// sum of matrices has inverse
+// product of matrices would have inverse if it is given that matrices are degenerate i.e. determinant of any matrix is not equal to 0
